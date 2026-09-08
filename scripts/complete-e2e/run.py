@@ -6,6 +6,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 HERE = Path(__file__).resolve().parent
 
+USAGE = "Usage: run.py [--help] [--version]\n  cargo test/check + SOURCE_REV — no PHPUnit"
+
 def main() -> int:
     print("grok-build complete-e2e")
     print("----------------------------------------")
@@ -22,12 +24,18 @@ def main() -> int:
     return rc
 
 if __name__ == "__main__":
-    import sys as _sys
-    _a = set(_sys.argv[1:])
+    _a = set(sys.argv[1:])
     if _a & {"-h", "--help"}:
-        print("grok-build-complete-e2e: cargo test/check + SOURCE_REV — no PHPUnit")
+        print(USAGE)
+        print("options:")
+        print("  -h, --help     show this help")
+        print("  -V, --version  print version")
         raise SystemExit(0)
     if _a & {"-V", "--version"}:
         print("grok-build-complete-e2e 1.0.0")
         raise SystemExit(0)
+    if _a:
+        print("unrecognized arguments:", " ".join(sys.argv[1:]), file=sys.stderr)
+        print(USAGE, file=sys.stderr)
+        raise SystemExit(2)
     raise SystemExit(main())
