@@ -140,4 +140,19 @@ def main() -> int:
 
 
 if __name__ == "__main__":
+    _argv = set(sys.argv[1:])
+    if _argv & {"-h", "--help"}:
+        print("Usage: consumer.py [--help] [--version]")
+        print("  Live grok-build proofs: cargo metadata/test/check, SOURCE_REV, README")
+        print("options:")
+        print("  -h, --help     show this help")
+        print("  -V, --version  print version")
+        raise SystemExit(0)
+    if _argv & {"-V", "--version"}:
+        print("grok-build-consumer 1.0.0")
+        raise SystemExit(0)
+    if _argv:
+        print("unrecognized arguments:", " ".join(sys.argv[1:]), file=sys.stderr)
+        print("Usage: consumer.py [--help] [--version]", file=sys.stderr)
+        raise SystemExit(2)
     raise SystemExit(main())

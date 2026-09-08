@@ -5,6 +5,20 @@
 # to ~/.grok/tool-activity.log with event name, tool name, and timestamp.
 # `toolName` is the resolved tool (e.g. `linear__save_issue` for MCP calls).
 
+#!/bin/sh
+# tool-logger.sh — log tool calls to a local activity file
+#
+# Reads the hook envelope from stdin and appends a one-line JSON entry
+# to ~/.grok/tool-activity.log with event name, tool name, and timestamp.
+# `toolName` is the resolved tool (e.g. `linear__save_issue` for MCP calls).
+
+if [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ]; then
+  echo "Usage: tool-logger.sh [--help]"
+  echo "Reads a grok hook envelope from stdin. options: --help"
+  echo "Appends one JSON line to ~/.grok/tool-activity.log"
+  exit 0
+fi
+
 INPUT=$(cat)
 
 EVENT=$(echo "$INPUT" | grep -o '"hookEventName":"[^"]*"' | sed 's/"hookEventName":"//;s/"$//')

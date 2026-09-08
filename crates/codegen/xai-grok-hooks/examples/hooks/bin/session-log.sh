@@ -5,6 +5,20 @@
 # to ~/.grok/session-audit.log with event name, session ID, cwd, and
 # timestamp.
 
+#!/bin/sh
+# session-log.sh — append session events to an audit log
+#
+# Reads the hook envelope from stdin and appends a one-line JSON entry
+# to ~/.grok/session-audit.log with event name, session ID, cwd, and
+# timestamp.
+
+if [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ]; then
+  echo "Usage: session-log.sh [--help]"
+  echo "Reads a grok hook envelope from stdin. options: --help"
+  echo "Appends one JSON line to ~/.grok/session-audit.log"
+  exit 0
+fi
+
 INPUT=$(cat)
 
 EVENT=$(echo "$INPUT" | grep -o '"hookEventName":"[^"]*"' | sed 's/"hookEventName":"//;s/"$//')

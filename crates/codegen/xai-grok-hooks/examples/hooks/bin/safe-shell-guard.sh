@@ -7,6 +7,22 @@
 # Returns {"decision":"deny","reason":"..."} + exit 2 for matches,
 # {"decision":"allow"} + exit 0 otherwise.
 
+#!/bin/sh
+# safe-shell-guard.sh — block obviously destructive shell commands
+#
+# This hook reads the PreToolUse envelope from stdin, extracts the
+# command field from toolInput, and checks it against a blocklist.
+#
+# Returns {"decision":"deny","reason":"..."} + exit 2 for matches,
+# {"decision":"allow"} + exit 0 otherwise.
+
+if [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ]; then
+  echo "Usage: safe-shell-guard.sh [--help]"
+  echo "Reads a grok PreToolUse envelope from stdin. options: --help"
+  echo "Denies rm -rf /, mkfs, dd-to-device, and similar destructive commands."
+  exit 0
+fi
+
 INPUT=$(cat)
 
 # Extract the command from the toolInput JSON.
