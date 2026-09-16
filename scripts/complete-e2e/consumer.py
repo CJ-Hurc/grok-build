@@ -140,4 +140,12 @@ def main() -> int:
 
 
 if __name__ == "__main__":
+    args = set(sys.argv[1:])
+    if args & {"-h", "--help"}:
+        print("usage: consumer.py [--help]")
+        print("help: live grok-build proofs (cargo metadata/test/check, SOURCE_REV, README)")
+        raise SystemExit(0)
+    if args & {"-V", "--version"}:
+        print("grok-build-consumer 1.0.0")
+        raise SystemExit(0)
     raise SystemExit(main())
