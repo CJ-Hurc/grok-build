@@ -25,7 +25,8 @@ if __name__ == "__main__":
     import sys as _sys
     _a = set(_sys.argv[1:])
     if _a & {"-h", "--help"}:
-        print("grok-build-complete-e2e: cargo test/check + SOURCE_REV — no PHPUnit")
+        print("usage: run.py [--help]")
+        print("help: grok-build-complete-e2e cargo test/check + SOURCE_REV — no PHPUnit")
         raise SystemExit(0)
     if _a & {"-V", "--version"}:
         print("grok-build-complete-e2e 1.0.0")

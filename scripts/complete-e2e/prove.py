@@ -8,7 +8,8 @@ ROOT = Path(__file__).resolve().parents[2]
 def main() -> int:
     a = set(sys.argv[1:])
     if a & {"-h", "--help"}:
-        print("grok-build-prove: wraps scripts/complete-e2e/run.py live product proofs")
+        print("usage: prove.py [--help]")
+        print("help: grok-build-prove wraps scripts/complete-e2e/run.py live product proofs")
         return 0
     if a & {"-V", "--version"}:
         print("grok-build-prove 1.0.0")
